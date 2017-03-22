@@ -1,0 +1,26 @@
+{
+  "name": "deribit-api",
+  "description": "Deribit API javascript client library",
+  "keywords": [
+    "deribit",
+    "rest",
+    "api"
+  ],
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": "",
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/deribit/deribit-api-js"
+  },
+  "dependencies": {
+    "create-hash": "^1.1.2",
+    "node-rest-client": "^3.0.3",
+    "q": "^1.4.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
