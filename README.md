@@ -33,6 +33,7 @@ restClient.index((result) => {
 Constructor creates new REST client.
 
 **Parameters**
+
 | Name     | Type     | Decription                                                |
 |----------|----------|-----------------------------------------------------------|
 | `key`    | `string` | Optional, Access Key needed to access Private functions   |
@@ -47,6 +48,7 @@ Constructor creates new REST client.
   Retrieve the orderbook for a given instrument.
 
   **Parameters**
+  
   | Name         | Type       | Decription                                                 |
   |--------------|------------|------------------------------------------------------------|
   | `instrument` | `string`   | Required, instrument name                                  |
@@ -57,6 +59,7 @@ Constructor creates new REST client.
   Get price index, BTC-USD rates.
 
   **Parameters**
+  
   | Name       | Type       | Decription                                                 |
   |------------|------------|------------------------------------------------------------|
   | `callback` | `function` | Optional, callback, if not provided method returns promise |
@@ -66,6 +69,7 @@ Constructor creates new REST client.
   Get all supported currencies.
 
   **Parameters**
+  
   | Name       | Type       | Decription                                                 |
   |------------|------------|------------------------------------------------------------|
   | `callback` | `function` | Optional, callback, if not provided method returns promise |
@@ -75,6 +79,7 @@ Constructor creates new REST client.
   Retrieve the orderbook for a given instrument.
 
   **Parameters**
+  
   | Name         | Type       | Decription                                                 |
   |--------------|------------|------------------------------------------------------------|
   | `instrument` | `string`   | Required, instrument name                                  |
@@ -85,6 +90,7 @@ Constructor creates new REST client.
   Retrieve the latest trades that have occured for a specific instrument.
 
   **Parameters**
+  
   | Name         | Type       | Decription                                                                    |
   |--------------|------------|-------------------------------------------------------------------------------|
   | `instrument` | `string`   | Required, instrument name                                                     |
@@ -97,6 +103,7 @@ Constructor creates new REST client.
   Retrieve the summary info such as Open Interest, 24H Volume etc for a specific instrument.
 
   **Parameters**
+  
   | Name         | Type       | Decription                                                 |
   |--------------|------------|------------------------------------------------------------|
   | `instrument` | `string`   | Required, instrument name                                  |
@@ -107,6 +114,7 @@ Constructor creates new REST client.
   Get user account summary.
 
   **Parameters**
+  
   | Name         | Type       | Decription                                                 |
   |--------------|------------|------------------------------------------------------------|
   | `callback`   | `function` | Optional, callback, if not provided method returns promise |
@@ -116,6 +124,7 @@ Constructor creates new REST client.
   Place a buy order in an instrument.
 
   **Parameters**
+  
   | Name         | Type       | Decription                                                                        |
   |--------------|------------|-----------------------------------------------------------------------------------|
   | `instrument` | `string`   | Required, instrument name                                                         |
@@ -130,6 +139,7 @@ Constructor creates new REST client.
   Place a sell order in an instrument.
 
   **Parameters**
+  
   | Name         | Type       | Decription                                                                        |
   |--------------|------------|-----------------------------------------------------------------------------------|
   | `instrument` | `string`   | Required, instrument name                                                         |
@@ -144,6 +154,7 @@ Constructor creates new REST client.
   Edit price and/or quantity of the own order. (Authorization is required).
 
   **Parameters**
+  
   | Name         | Type       | Decription                                                                        |
   |--------------|------------|-----------------------------------------------------------------------------------|
   | `orderId`    | `integer`  | Required, ID of the order returned by "sell" or "buy" request                     |
@@ -156,6 +167,7 @@ Constructor creates new REST client.
   Cancell own order by id.
 
   **Parameters**
+  
   | Name         | Type       | Decription                                                                        |
   |--------------|------------|-----------------------------------------------------------------------------------|
   | `orderId`    | `integer`  | Required, ID of the order returned by "sell" or "buy" request                     |
@@ -166,6 +178,7 @@ Constructor creates new REST client.
   Cancel all own futures, or all options, or all.
 
   **Parameters**
+  
   | Name         | Type       | Decription                                                                                    |
   |--------------|------------|-----------------------------------------------------------------------------------------------|
   | `type`       | `string`   | Optional, type of instruments to cancel, allowed: "all", "futures", "options", default: "all" |
@@ -176,6 +189,7 @@ Constructor creates new REST client.
   Retrieve open orders.
 
   **Parameters**
+  
   | Name         | Type       | Description                                                           |
   |--------------|------------|-----------------------------------------------------------------------|
   | `instrument` | `string`   | Optional, instrument name, use if want orders for specific instrument |
@@ -187,6 +201,7 @@ Constructor creates new REST client.
   Retreive positions.
 
   **Parameters**
+  
   | Name         | Type       | Decription                                                 |
   |--------------|------------|------------------------------------------------------------|
   | `callback`   | `function` | Optional, callback, if not provided method returns promise |
@@ -196,6 +211,7 @@ Constructor creates new REST client.
   Get history.
 
   **Parameters**
+  
   | Name       | Type       | Description                                                |
   |------------|------------|------------------------------------------------------------|
   | `count`    | `integer`  | Optional, number of requested records                      |
@@ -206,6 +222,7 @@ Constructor creates new REST client.
   Get private trade history of the account. (Authorization is required). The result is ordered by trade identifiers (trade id-s).
 
   **Parameters**
+  
   | Name           | Type       | Description                                                                                        |
   |----------------|------------|----------------------------------------------------------------------------------------------------|
   | `count`        | `integer`  | Optional, number of results to fetch. Default: 20                                                  |
