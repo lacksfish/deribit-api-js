@@ -2,11 +2,12 @@ var Client = require('node-rest-client').Client;
 var createHash = require('create-hash');
 var Q = require("q");
 var Url = require('url');
+var http  = require('http');
+var https = require('https');
+var debug = require('debug')('deribit-api');
 
 function RestClient(key, secret, url) {
-  if (url === void 0) { url = "http://www.deribit.com" };
-
-  this.client = new Client();
+  if (url === void 0) { url = "https://www.deribit.com" };
 
   var parsedUrl = Url.parse(url);
 
@@ -15,6 +16,17 @@ function RestClient(key, secret, url) {
   }
 
   this.url = parsedUrl.protocol + "//" + parsedUrl.host;  
+  debug("url: %s", url);
+
+  var keepAliveAgent;
+  if (parsedUrl.protocol == "https:") {
+    keepAliveAgent = new https.Agent({keepAlive: true});
+  } else {
+    keepAliveAgent = new http.Agent({keepAlive: true});
+  }
+
+  this.client = new Client();
+  this.client.connection.agent = keepAliveAgent;
 
   this.key = key;
   this.secret = secret;
@@ -51,9 +63,12 @@ RestClient.prototype.generateSignature = function(action, data){
 
   var allData = Object.assign(startingData, data);
   var paramsString = this.objectToString(allData, false);
+  debug("sign base: %s", paramsString);
 
   var hash = createHash("sha256").update(paramsString).digest().toString("base64");
-  return this.key + "." + tstamp.toString() + "." + hash;
+  var sig  = this.key + "." + tstamp.toString() + "." + hash;
+  debug("signature: %s", sig);
+  return sig;
 };
 
 RestClient.prototype.request = function(action, data, callback) {
@@ -72,8 +87,9 @@ RestClient.prototype.request = function(action, data, callback) {
     }
     
     actionFunction = this.client.post;
+    debug("method: post");
+
     var signature = this.generateSignature(action, data);
-    console.log("sig", signature);
     if (Object.keys(data).length > 0) {
       args["data"] = this.objectToString(data, true);
     }
@@ -81,6 +97,8 @@ RestClient.prototype.request = function(action, data, callback) {
     args["headers"]["x-deribit-sig"] = signature;
   } else {
     actionFunction = this.client.get;
+    debug("method: get");
+
     if (Object.keys(data).length > 0) {
       args["parameters"] = data;
     }
@@ -90,16 +108,21 @@ RestClient.prototype.request = function(action, data, callback) {
     var deferred = Q.defer();
     actionFunction(this.url + action, args, function (data, response){
       if (response.headers['content-type'] != "application/json") {
+        debug("invalid response content-type %s", response.headers['content-type']);
         deffered.reject("wrong response type");
         return;
       }
+      debug("response: %o", data);
       deferred.resolve(data);
     }).on('error', (err) => {
+      debug("error: %o", err);
       deffered.reject(err);
     }).on('requestTimeout', (req) => {
+      debug("request timeout");
       deffered.reject('requestTimeout');
       req.abort();
     }).on('responseTimeout', () => {
+      debug("response timeout");
       deffered.reject('responseTimeout');
     });
 
@@ -107,11 +130,14 @@ RestClient.prototype.request = function(action, data, callback) {
   } else {
     actionFunction(this.url + action, args, function(result, response) {
       if (response.headers['content-type'] != "application/json") {
+        debug("invalid response content-type %s", response.headers['content-type']);
         callback(null, "wrong response type");
         return;
       }
+      debug("response: %o", data);
       callback(result);
     }).on('error', function(err) {
+      debug("error: %o", err);
       callback(null, err);
     });
   }
