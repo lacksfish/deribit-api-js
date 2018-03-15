@@ -109,21 +109,21 @@ RestClient.prototype.request = function(action, data, callback) {
     actionFunction(this.url + action, args, function (data, response){
       if (response.headers['content-type'] != "application/json") {
         debug("invalid response content-type %s", response.headers['content-type']);
-        deffered.reject("wrong response type");
+        deferred.reject("wrong response type");
         return;
       }
       debug("response: %o", data);
       deferred.resolve(data);
     }).on('error', (err) => {
       debug("error: %o", err);
-      deffered.reject(err);
+      deferred.reject(err);
     }).on('requestTimeout', (req) => {
       debug("request timeout");
-      deffered.reject('requestTimeout');
+      deferred.reject('requestTimeout');
       req.abort();
     }).on('responseTimeout', () => {
       debug("response timeout");
-      deffered.reject('responseTimeout');
+      deferred.reject('responseTimeout');
     });
 
     return deferred.promise;
