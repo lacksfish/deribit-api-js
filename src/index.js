@@ -1,3 +1,5 @@
+var bluebird = require('bluebird');
+
 module.exports = {
-  RestClient: require("./RestClient")
+  RestClient: bluebird.promisifyAll(require("./RestClient"))
 };

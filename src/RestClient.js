@@ -7,7 +7,7 @@ var https = require('https');
 var debug = require('debug')('deribit-api');
 
 function RestClient(key, secret, url) {
-  if (url === void 0) { url = "https://www.deribit.com" };
+  if (url === void 0) { url = "https://www.deribit.com" }
 
   var parsedUrl = Url.parse(url);
 
